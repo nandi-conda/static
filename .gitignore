@@ -1,5 +1,4 @@
 .pixi/
-node_modules/
 dist/
 .static/
 __pycache__/

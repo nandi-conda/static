@@ -101,8 +101,8 @@ they never reach the site app.
 
 ```sh
 pixi run test-unit             # literals, URLs, front matter, codegen
-pixi run test                  # both; the first run fetches Playwright and Chromium
-pixi run test-e2e              # builds the example, serves it, runs tests/e2e.cjs in Chromium
+pixi run test                  # both; the first run fetches Chromium
+pixi run test-e2e              # builds the example, serves it, drives it in Chromium (tests/e2e.py)
 ```
 
 Set `CHROMIUM=/path/to/chrome` to use a browser you already have. The browser test checks the prerendered HTML with scripts blocked, hydration, the island,

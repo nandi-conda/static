@@ -15,6 +15,14 @@ build = { cmd = "python -m static build example", description = "Build the examp
 serve = { cmd = "python -m static serve example", description = "Serve the example on :8000, rebuilding on change" }
 new = { cmd = "python -m static new", description = "pixi run new DIR: start a site from the example" }
 test-unit = { cmd = "python -m unittest discover -s tests -v", description = "Codegen and content tests" }
-install-playwright = { cmd = "npm install --no-save --no-package-lock playwright@1.56.1 && npx playwright install chromium", description = "Fetch Playwright and Chromium for the browser test (cached after the first run)" }
-test-e2e = { cmd = "python tests/run_e2e.py", depends-on = ["install-playwright"], description = "Build the example, serve it, run tests/e2e.cjs in Chromium" }
+
+[feature.test.dependencies]
+playwright-python = ">=1.50"   # Python bindings + driver from conda-forge
+
+[feature.test.tasks]
+install-chromium = { cmd = "playwright install chromium", description = "Fetch Chromium for the browser test (no-op once cached)" }
+test-e2e = { cmd = "python tests/e2e.py", depends-on = ["install-chromium"], description = "Build the example, serve it, drive it in Chromium" }
 test = { depends-on = ["test-unit", "test-e2e"], description = "Unit and browser tests" }
+
+[environments]
+test = ["test"]
