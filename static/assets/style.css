@@ -30,7 +30,8 @@ body { margin: 0; background: var(--background); color: var(--foreground);
 .site-footer { padding: 1.5rem 1rem; text-align: center; font-size: .85rem;
                color: var(--muted-foreground); border-top: 1px solid var(--border); }
 
-.page h1 { font-size: 2.25rem; line-height: 1.2; letter-spacing: -.03em; margin: 0 0 .5rem; }
+.page h1 { font-size: 2.25rem; line-height: 1.2; letter-spacing: -.03em; margin: 0 0 .5rem;
+            text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
 .page h2 { font-size: 1.5rem; letter-spacing: -.02em; margin: 2.25rem 0 .5rem; }
 .page h3 { font-size: 1.2rem; margin: 1.75rem 0 .5rem; }
 .page .meta { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap;
@@ -51,7 +52,8 @@ body { margin: 0; background: var(--background); color: var(--foreground);
 
 .listing { list-style: none; padding: 0; margin: 1.5rem 0; display: grid; gap: 1.25rem; }
 .listing time { display: block; font-size: .825rem; color: var(--muted-foreground); }
-.listing a { font-size: 1.1rem; font-weight: 600; text-decoration: none; }
+.listing a { font-size: 1.1rem; font-weight: 600; text-decoration: underline;
+             text-decoration-thickness: 1px; text-underline-offset: 4px; }
 .listing p { margin: .15rem 0 0; color: var(--muted-foreground); }
 
 .island { margin: 1.5rem 0; }
