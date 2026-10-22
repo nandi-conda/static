@@ -2,7 +2,7 @@ context:
   version: ${{ env.get("STATIC_VERSION", default="0.1.0") }}
 
 package:
-  name: static
+  name: ultra-static
   version: ${{ version }}
 
 source:

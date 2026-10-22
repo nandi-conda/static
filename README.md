@@ -9,10 +9,10 @@ about 19 KB for the example), so once it loads, links between pages are ultra me
 patches instead of page loads. The header search runs in wasm too, and pages can embed
 **islands**: small interactive ultra apps of their own.
 
-Install the command from the [`nandi-testing`](https://prefix.dev/channels/nandi-testing) channel:
+Install the `static` command (conda package [`ultra-static`](https://prefix.dev/channels/nandi-testing/packages/ultra-static)) from the `nandi-testing` channel:
 
 ```sh
-pixi global install --channel https://prefix.dev/nandi-testing --channel conda-forge static
+pixi global install --channel https://prefix.dev/nandi-testing --channel conda-forge ultra-static
 static new mysite && static serve mysite
 ```
 
