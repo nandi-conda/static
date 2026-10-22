@@ -15,6 +15,7 @@ reads fine without JavaScript and search engines see the content.
 """
 
 import argparse
+import errno
 import html
 import importlib.util
 import json
@@ -207,8 +208,19 @@ def serve(site_dir, dist, port, drafts):
                 except SystemExit as e:
                     print(f"build failed: {e}", file=sys.stderr)
 
+    srv = None
+    for p in range(port, port + 20):  # port taken: try the next ones
+        try:
+            srv = tool.make_server(dist, p)
+            break
+        except OSError as e:
+            if e.errno != errno.EADDRINUSE:
+                sys.exit(f"cannot serve on port {p}: {e.strerror}")
+    if srv is None:
+        sys.exit(f"ports {port}-{port + 19} are all in use; pick another with --port")
+    if srv.server_address[1] != port:
+        print(f"port {port} is in use, using {srv.server_address[1]}")
     threading.Thread(target=watch, daemon=True).start()
-    srv = tool.make_server(dist, port)
     handler = srv.RequestHandlerClass
 
     class Handler(handler):  # serve 404.html for unknown paths, like a static host
