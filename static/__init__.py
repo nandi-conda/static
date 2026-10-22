@@ -237,18 +237,61 @@ def new(target):
     print(f"new site in {target}: run `static serve {target}`")
 
 
+EPILOG = """\
+a site folder looks like:
+  site.toml         title, description, url, base, nav, footer
+  content/**/*.md   pages; front matter may set title, date, draft: true
+  static/           copied into the output as is
+  islands/*.py      interactive ultra apps embedded in pages
+
+examples:
+  static new mysite              start a site from the example template
+  static serve mysite            preview at http://localhost:8000, rebuilds on change
+  static serve --port 3000       serve the current folder on another port
+  static build mysite            write the site to mysite/dist
+  static build -o public --drafts
+                                 build the current folder into ./public, drafts included
+
+run `static COMMAND -h` for a command's options.
+"""
+
+
 def main(argv=None):
-    p = argparse.ArgumentParser(prog="static", description="static site generator on ultra")
-    sub = p.add_subparsers(dest="cmd", required=True)
-    for name in ("build", "serve"):
-        s = sub.add_parser(name)
-        s.add_argument("site", nargs="?", default=".")
-        s.add_argument("-o", "--out", help="output folder (default SITE/dist)")
+    fmt = argparse.RawDescriptionHelpFormatter
+    p = argparse.ArgumentParser(
+        prog="static", formatter_class=fmt, epilog=EPILOG,
+        description="static: a static site generator on ultra. Markdown pages are "
+                    "compiled to one WebAssembly app and prerendered to plain HTML.")
+    sub = p.add_subparsers(dest="cmd", title="commands", metavar="COMMAND")
+    helps = {
+        "build": ("build the site into an output folder",
+                  "Build SITE into static HTML, app.wasm, islands, sitemap.xml and feed.xml.",
+                  "examples:\n  static build\n  static build mysite\n"
+                  "  static build mysite -o public --drafts"),
+        "serve": ("build, serve locally and rebuild on change",
+                  "Build SITE, serve it over HTTP, and rebuild whenever content/, static/, "
+                  "islands/ or site.toml change.",
+                  "examples:\n  static serve\n  static serve mysite --port 3000"),
+    }
+    for name, (short, desc, ex) in helps.items():
+        s = sub.add_parser(name, help=short, description=desc, epilog=ex, formatter_class=fmt)
+        s.add_argument("site", nargs="?", default=".", metavar="SITE",
+                       help="site folder containing site.toml (default: current folder)")
+        s.add_argument("-o", "--out", metavar="DIR", help="output folder (default: SITE/dist)")
         s.add_argument("--drafts", action="store_true", help="include pages with draft: true")
         if name == "serve":
-            s.add_argument("--port", type=int, default=8000)
-    n = sub.add_parser("new")
-    n.add_argument("dir")
+            s.add_argument("--port", type=int, default=8000,
+                           help="port to listen on (default: 8000)")
+    n = sub.add_parser("new", help="create a new site from the example template",
+                       description="Copy the example site (pages, posts, docs and a counter "
+                                   "island) into DIR, which must be empty or missing.",
+                       epilog="example:\n  static new mysite && static serve mysite",
+                       formatter_class=fmt)
+    n.add_argument("dir", metavar="DIR", help="folder to create the site in")
+    argv = sys.argv[1:] if argv is None else argv
+    if not argv:
+        p.print_help()
+        return 0
     a = p.parse_args(argv)
     if a.cmd == "new":
         return new(a.dir)
