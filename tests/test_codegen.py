@@ -9,6 +9,11 @@ from static.codegen import generate, lit_parts  # noqa: E402
 from static.content import front_matter, load_site, url_for  # noqa: E402
 
 
+def write(path, text):
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(text)
+
+
 def decode(parts):
     """What the browser ends up with for lit_parts' output."""
     return "".join(v[1:-1] if k == "lit" else chr(v) for k, v in parts)
@@ -42,12 +47,12 @@ class Content(unittest.TestCase):
     def test_site(self):
         with tempfile.TemporaryDirectory() as d:
             os.makedirs(os.path.join(d, "content", "posts"))
-            open(os.path.join(d, "site.toml"), "w").write('title = "T"\nbase = "/sub"\n')
-            open(os.path.join(d, "content", "index.md"), "w").write(
-                "# Welcome\n\nSee [the post](posts/p.md) and [x](https://e.com).\n")
-            open(os.path.join(d, "content", "posts", "p.md"), "w").write(
-                "---\ndate: 2026-01-02\n---\n## Part one\n\n<b>raw</b> html\n")
-            open(os.path.join(d, "content", "posts", "q.md"), "w").write("---\ndraft: true\n---\nx\n")
+            write(os.path.join(d, "site.toml"), 'title = "T"\nbase = "/sub"\n')
+            write(os.path.join(d, "content", "index.md"),
+                  "# Welcome\n\nSee [the post](posts/p.md) and [x](https://e.com).\n")
+            write(os.path.join(d, "content", "posts", "p.md"),
+                  "---\ndate: 2026-01-02\n---\n## Part one\n\n<b>raw</b> html\n")
+            write(os.path.join(d, "content", "posts", "q.md"), "---\ndraft: true\n---\nx\n")
             site = load_site(d)
             self.assertEqual([p.src for p in site.pages], ["index.md", "posts/p.md"])
             self.assertEqual(site.pages[0].title, "Welcome")

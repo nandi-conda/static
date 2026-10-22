@@ -9,6 +9,15 @@ about 19 KB for the example), so once it loads, links between pages are ultra me
 patches instead of page loads. The header search runs in wasm too, and pages can embed
 **islands**: small interactive ultra apps of their own.
 
+Install the command from the [`nandi-testing`](https://prefix.dev/channels/nandi-testing) channel:
+
+```sh
+pixi global install --channel https://prefix.dev/nandi-testing --channel conda-forge static
+static new mysite && static serve mysite
+```
+
+Or from a checkout:
+
 ```sh
 pixi run serve            # example site on http://localhost:8000, rebuilds on change
 pixi run build            # writes example/dist
@@ -92,9 +101,15 @@ they never reach the site app.
 
 ```sh
 pixi run test-unit             # literals, URLs, front matter, codegen
-pixi run install-playwright    # once
-pixi run test                  # builds the example, serves it, runs tests/e2e.cjs in Chromium
+pixi run test                  # both; the first run fetches Playwright and Chromium
+pixi run test-e2e              # builds the example, serves it, runs tests/e2e.cjs in Chromium
 ```
 
-The browser test checks the prerendered HTML with scripts blocked, hydration, the island,
+Set `CHROMIUM=/path/to/chrome` to use a browser you already have. The browser test checks the prerendered HTML with scripts blocked, hydration, the island,
 in-app navigation without reloads, back/forward, search, and literal round-tripping.
+
+## Releases
+
+Every push to `main` builds the conda package from `recipe/` (version `0.1.<commit count>`) with the
+shared [nandi-conda/ci](https://github.com/nandi-conda/ci) workflow and publishes it to
+`prefix.dev/nandi-testing`.

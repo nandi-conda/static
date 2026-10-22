@@ -1,0 +1,53 @@
+context:
+  version: ${{ env.get("STATIC_VERSION", default="0.1.0") }}
+
+package:
+  name: static
+  version: ${{ version }}
+
+source:
+  path: ..
+
+build:
+  number: 0
+  noarch: python
+  script:
+    - mkdir -p $SP_DIR/static
+    - cp -r static/. $SP_DIR/static/
+    - cp -r example $SP_DIR/static/example
+    - rm -rf $SP_DIR/static/example/dist $SP_DIR/static/example/.static
+    - find $SP_DIR/static -name __pycache__ -prune -exec rm -rf {} +
+  python:
+    entry_points:
+      - static = static:main
+
+requirements:
+  host:
+    - python >=3.11
+  run:
+    - python >=3.11
+    - ultra >=0.1.20
+    - nodejs >=22
+    - markdown-it-py >=3
+
+tests:
+  - python:
+      imports:
+        - static
+      pip_check: false
+  - script:
+      - static new site
+      - static build site
+      - test -s site/dist/app.wasm
+      - test -s site/dist/index.html
+      - test -s site/dist/islands/counter.wasm
+      - grep -q "Markdown in, WebAssembly out" site/dist/index.html
+
+about:
+  homepage: https://github.com/nandi-conda/static
+  repository: https://github.com/nandi-conda/static
+  summary: Static site generator on ultra, markdown pages compiled to one LPython/WebAssembly app
+  description: |
+    Provides the `static` command (new, build, serve). Every page is prerendered
+    to HTML, and the whole site is also one ultra app for in-place navigation,
+    wasm search and interactive islands.

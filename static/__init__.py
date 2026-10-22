@@ -32,7 +32,10 @@ from .content import load_site
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ASSETS = os.path.join(HERE, "assets")
-EXAMPLE = os.path.join(os.path.dirname(HERE), "example")
+# The conda package ships the example inside the module; a checkout has it at the root.
+EXAMPLE = os.path.join(HERE, "example")
+if not os.path.isdir(EXAMPLE):
+    EXAMPLE = os.path.join(os.path.dirname(HERE), "example")
 
 
 def ultra_tool():
