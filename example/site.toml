@@ -1,0 +1,6 @@
+title = "ultrasite"
+description = "A static site generator on ultra: markdown compiled to WebAssembly."
+# url = "https://example.com"   # absolute site URL, used in sitemap.xml and feed.xml
+base = "/"                        # set to "/repo/" when hosting under a subpath (GitHub Pages)
+nav = ["/", "/posts/", "/docs/", "/about/"]
+footer = "Built with ultrasite. Every page here is LPython compiled to WebAssembly."

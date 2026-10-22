@@ -1,0 +1,5 @@
+.pixi/
+node_modules/
+dist/
+.ultrasite/
+__pycache__/
