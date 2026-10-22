@@ -29,7 +29,7 @@ def page_3() -> None:
 ## Literals
 
 LPython's wasm backend copies string literals byte for byte: `"\n"` stays a
-backslash and an `n`. ultrasite never writes an escape; a newline, a backslash,
+backslash and an `n`. static never writes an escape; a newline, a backslash,
 or a `"` next to a `'` is emitted as `ch(code)` instead.
 
 ## Navigation

@@ -7,7 +7,7 @@ import threading
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
-from ultrasite import build, ultra_tool  # noqa: E402
+from static import build, ultra_tool  # noqa: E402
 
 site = os.path.join(ROOT, "example")
 dist = os.path.join(site, "dist")

@@ -4,4 +4,4 @@ order: 1
 list: posts
 ---
 
-Notes on building ultrasite.
+Notes on building static.

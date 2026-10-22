@@ -26,7 +26,7 @@ const SHOTS = process.env.SHOTS;
   await page.goto(BASE + "/");
   await page.waitForSelector(".island .counter-value");
   assert.equal(await page.textContent(".page h1"), "Markdown in, WebAssembly out");
-  assert.equal(await page.title(), "ultrasite");
+  assert.equal(await page.title(), "static");
   const plus = page.locator(".island").getByRole("button", { name: "+", exact: true });
   await plus.click();
   await plus.click();
@@ -38,7 +38,7 @@ const SHOTS = process.env.SHOTS;
   await page.click("nav a:has-text('Posts')");
   await page.waitForSelector(".listing");
   assert.equal(new URL(page.url()).pathname, "/posts/");
-  assert.equal(await page.title(), "Posts · ultrasite");
+  assert.equal(await page.title(), "Posts · static");
   assert.equal(await page.evaluate(() => window.__marker), 1, "page reloaded");
   const items = await page.$$eval(".listing a", (as) => as.map((a) => a.textContent));
   assert.deepEqual(items, ["How it works", "Hello, ultra"]); // newest first

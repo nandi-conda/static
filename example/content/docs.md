@@ -43,9 +43,9 @@ you read the page.
 ## Commands
 
 ```sh
-ultrasite new mysite        # copy this example
-ultrasite serve mysite      # build, serve on :8000, rebuild on change
-ultrasite build mysite      # write mysite/dist
+static new mysite        # copy this example
+static serve mysite      # build, serve on :8000, rebuild on change
+static build mysite      # write mysite/dist
 ```
 
 ## Output
@@ -56,7 +56,7 @@ dist/
   app.wasm                           every page, as one ultra app
   islands/*.wasm                     one per island
   ultra.js, ui.css                   ultra's runtime and theme
-  site.js, routes.js, style.css      ultrasite's glue and theme
+  site.js, routes.js, style.css      static's glue and theme
   404.html, sitemap.xml, feed.xml
 ```
 

@@ -1,4 +1,4 @@
-/* ultrasite default theme, on top of ultra's ui.css tokens (light + dark).
+/* static default theme, on top of ultra's ui.css tokens (light + dark).
    Put a style.css in your site's static/ to replace it. */
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--background); color: var(--foreground);

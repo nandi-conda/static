@@ -5,8 +5,8 @@ import unittest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from ultrasite.codegen import generate, lit_parts  # noqa: E402
-from ultrasite.content import front_matter, load_site, url_for  # noqa: E402
+from static.codegen import generate, lit_parts  # noqa: E402
+from static.content import front_matter, load_site, url_for  # noqa: E402
 
 
 def decode(parts):

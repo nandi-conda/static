@@ -1,4 +1,4 @@
-// Prerender an ultrasite app: run its wasm in Node, render every page with
+// Prerender an static app: run its wasm in Node, render every page with
 // view(), and print the HTML of each as a JSON array.
 //
 //   node prerender.mjs app.wasm N POP

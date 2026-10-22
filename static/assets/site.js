@@ -1,4 +1,4 @@
-// ultrasite browser runtime: mounts the site's ultra app over the prerendered
+// static browser runtime: mounts the site's ultra app over the prerendered
 // page, keeps the address bar in sync, and mounts islands (their own ultra apps).
 import { mount } from "./ultra.js";
 import { base, pages, POP } from "./routes.js";

@@ -1,4 +1,4 @@
-# ultrasite
+# static
 
 A static site generator on [ultra](https://github.com/nandi-conda/ultra), the Elm-style
 frontend framework whose apps are LPython compiled to WebAssembly.
@@ -13,7 +13,7 @@ patches instead of page loads. The header search runs in wasm too, and pages can
 pixi run serve            # example site on http://localhost:8000, rebuilds on change
 pixi run build            # writes example/dist
 pixi run new mysite       # start your own site from the example
-pixi run python -m ultrasite serve mysite
+pixi run python -m static serve mysite
 ```
 
 `ultra` comes from the [`nandi-testing`](https://prefix.dev/channels/nandi-testing/packages/ultra)
@@ -62,7 +62,7 @@ dist/
   app.wasm                            every page as one ultra app
   islands/*.wasm                      one per island
   ultra.js, ui.css                    ultra's runtime and shadcn-style theme (light + dark)
-  site.js, routes.js, style.css       ultrasite's browser glue and theme
+  site.js, routes.js, style.css       static's browser glue and theme
   404.html, sitemap.xml, feed.xml
 ```
 
@@ -82,7 +82,7 @@ Deploy `dist/` to any static host. The pages are real files, so no rewrite rules
    `history.pushState`, and mounts islands as they appear.
 
 LPython's wasm backend keeps string literals byte for byte (it doesn't process escapes), so
-ultrasite never writes a backslash, newline or clashing quote into a literal: those characters
+static never writes a backslash, newline or clashing quote into a literal: those characters
 are emitted with a `ch(code)` import instead.
 
 Islands use message numbers of their own; their events are stopped at the island's root so

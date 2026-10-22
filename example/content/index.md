@@ -5,7 +5,7 @@ description: Markdown in, WebAssembly out.
 
 # Markdown in, WebAssembly out
 
-**ultrasite** turns a folder of markdown into a site whose pages are an
+**static** turns a folder of markdown into a site whose pages are an
 [ultra](https://github.com/nandi-conda/ultra) app: every page becomes LPython
 `view()` code, and the whole site compiles to a single small `app.wasm`.
 

@@ -1,8 +1,8 @@
-"""ultrasite: a static site generator on ultra.
+"""static: a static site generator on ultra.
 
-  ultrasite build [SITE] [-o DIST] [--drafts]   markdown -> one ultra app + prerendered HTML
-  ultrasite serve [SITE] [--port 8000]          build, serve DIST, rebuild on change
-  ultrasite new DIR                             start a site from the example
+  static build [SITE] [-o DIST] [--drafts]   markdown -> one ultra app + prerendered HTML
+  static serve [SITE] [--port 8000]          build, serve DIST, rebuild on change
+  static new DIR                             start a site from the example
 
 A site is a folder with site.toml, content/**/*.md, and optionally static/
 (copied as is) and islands/*.py (interactive ultra apps embedded in pages with
@@ -91,7 +91,7 @@ def build(site_dir, dist, drafts=False, quiet=False):
     if os.path.isdir(dist):
         shutil.rmtree(dist)
     os.makedirs(dist)
-    gen_dir = os.path.join(site_dir, ".ultrasite")
+    gen_dir = os.path.join(site_dir, ".static")
     os.makedirs(gen_dir, exist_ok=True)
     app = os.path.join(gen_dir, "app.py")
     with open(app, "w", encoding="utf-8") as f:
@@ -229,13 +229,13 @@ def serve(site_dir, dist, port, drafts):
 def new(target):
     if os.path.exists(target) and os.listdir(target):
         sys.exit(f"{target} exists and is not empty")
-    shutil.copytree(EXAMPLE, target, ignore=shutil.ignore_patterns(".ultrasite", "dist"),
+    shutil.copytree(EXAMPLE, target, ignore=shutil.ignore_patterns(".static", "dist"),
                     dirs_exist_ok=True)
-    print(f"new site in {target}: run `ultrasite serve {target}`")
+    print(f"new site in {target}: run `static serve {target}`")
 
 
 def main(argv=None):
-    p = argparse.ArgumentParser(prog="ultrasite", description="static site generator on ultra")
+    p = argparse.ArgumentParser(prog="static", description="static site generator on ultra")
     sub = p.add_subparsers(dest="cmd", required=True)
     for name in ("build", "serve"):
         s = sub.add_parser(name)

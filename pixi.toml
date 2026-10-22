@@ -1,5 +1,5 @@
 [workspace]
-name = "ultrasite"
+name = "static"
 description = "Static site generator on ultra: markdown pages compiled to one LPython/WebAssembly app"
 channels = ["https://conda.anaconda.org/conda-forge", "https://prefix.dev/nandi-testing"]
 platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
@@ -11,9 +11,9 @@ nodejs = ">=22"            # prerendering runs the site's wasm in node
 markdown-it-py = ">=3"
 
 [tasks]
-build = { cmd = "python -m ultrasite build example", description = "Build the example site into example/dist" }
-serve = { cmd = "python -m ultrasite serve example", description = "Serve the example on :8000, rebuilding on change" }
-new = { cmd = "python -m ultrasite new", description = "pixi run new DIR: start a site from the example" }
+build = { cmd = "python -m static build example", description = "Build the example site into example/dist" }
+serve = { cmd = "python -m static serve example", description = "Serve the example on :8000, rebuilding on change" }
+new = { cmd = "python -m static new", description = "pixi run new DIR: start a site from the example" }
 test-unit = { cmd = "python -m unittest discover -s tests -v", description = "Codegen and content tests" }
 install-playwright = { cmd = "npm install --no-save --no-package-lock playwright@1.56.1 && npx playwright install chromium", description = "Fetch Playwright and Chromium for the browser test" }
 test = { cmd = "python tests/run_e2e.py", depends-on = ["test-unit"], description = "Build the example, serve it, run tests/e2e.cjs" }
